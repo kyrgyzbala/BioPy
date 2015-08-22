@@ -1,11 +1,15 @@
 class Gene(object):
-    def __init__(self, source, pFrom, pTo, gid=None, organism=None, strand=None):
+    def __init__(self, source, pFrom, pTo, gid=None, organism=None, strand=None, cogid=None, arcogid=None):
         self.src = source
         self.gid = gid
         self.pFrom, self.pTo = pFrom, pTo
         self.pFrom = int(self.pFrom)
         self.pTo = int(self.pTo)
         self.strand = strand
+        self.organism = organism
+        self.cogid = cogid
+        self.arcogid = arcogid
+        self.tag=None
 
     def __str__(self):
         return  "%s_%d_%d"%(self.gid, self.pFrom,self.pTo)
@@ -43,6 +47,12 @@ class Gene(object):
         dist = other.pFrom - self.pTo if (other.pFrom - self.pTo)>0 else self.pFrom - other.pTo
         return True if dist<=threshold else False
 
+    def set_cog(self, cogid):
+        self.cogid = cogid
+
+    def set_arcogid(self, arcogid):
+        self.arcogid = arcogid
+
     def __cmp__(self, other):
         if self.pFrom>other.pFrom:
             return 1
@@ -50,3 +60,6 @@ class Gene(object):
             return -1
         else:
             return 0
+
+    def set_product_enzyme(self, enzyme_type_name):
+        self.enzyme_type_name = enzyme_type_name
