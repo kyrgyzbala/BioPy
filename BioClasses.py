@@ -63,3 +63,34 @@ class Gene(object):
 
     def set_product_enzyme(self, enzyme_type_name):
         self.enzyme_type_name = enzyme_type_name
+
+
+class CrisprGene(object):
+    def __init__(self, source, pFrom, pTo, gid=None, organism=None, strand=None, cogid=None,
+                 cas_status=None, gene_name=None, is_seed=None, crispr_type=None, is_complete=None):
+
+        self.src = source
+        self.gid = gid
+        self.pFrom, self.pTo = pFrom, pTo
+        self.pFrom = int(self.pFrom)
+        self.pTo = int(self.pTo)
+        self.strand = strand
+        self.organism = organism
+        self.cogid = cogid
+        self.cas_status = cas_status
+        self.gene_name = gene_name
+        self.is_seed = is_seed
+        self.crispr_type = crispr_type
+        self.is_complete = is_complete
+
+
+    def __str__(self):
+        return  "%s_%d_%d"%(self.gid, self.pFrom,self.pTo)
+
+    def __cmp__(self, other):
+        if self.pFrom>other.pFrom:
+            return 1
+        elif self.pFrom<other.pFrom:
+            return -1
+        else:
+            return 0
